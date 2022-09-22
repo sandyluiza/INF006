@@ -1,1 +1,0 @@
-Anotacoes_aula_pratica_allan_1.o Anotacoes_aula_pratica_allan_1.d : Anotacoes_aula_pratica_allan_1.c
