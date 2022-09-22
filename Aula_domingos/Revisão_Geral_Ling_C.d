@@ -1,0 +1,1 @@
+Revisão_Geral_Ling_C.o: Aula_domingos/Revisão_Geral_Ling_C.c

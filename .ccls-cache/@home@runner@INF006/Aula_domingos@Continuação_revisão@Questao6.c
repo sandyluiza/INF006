@@ -1,0 +1,2 @@
+// Criar o codigo para solução das seguintes questões:
+// 6)  Que leia e armazene os elemntos de uma matriz inteira (10,10) e imprima. depois troque os dados da segunda linha pela oitava. da quarta pela decima, a diagonal principal pela diagonal segundaria.

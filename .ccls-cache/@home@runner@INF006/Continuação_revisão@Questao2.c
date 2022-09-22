@@ -1,0 +1,2 @@
+// Criar o codigo para solução das seguintes questões:
+// 2) Que dado dois vetores de 10 posições, efetue operações basicas aritmeticas, indicadas por um terceiro vetor cujos dados tambem são fornecidos pelo usuario, gerando e imprimindo um quarto vetor.

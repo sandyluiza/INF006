@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 // Questão 1: Na usina de Angra dos Reis, os técnicos analisam a perda de massa de um material radioativo. Sabendo-se que este perde 25% de sua massa a cada 30 segundos, criar um programa que imprima o tempo necessário para que a massa deste material se torne menor que 0,10 gramas. O programa pode calcular o tempo para varias massas.
 // int main()
 // {
@@ -194,24 +195,24 @@
 // Questão 7: Criar programa que leia dois conjuntos de números inteiros, tendo cada um 10 e 20 elementos e apresente os elementos comuns aos conjuntos. lembre-se de que os elementos podem se repetir mas não podem aparecer repetidos na saída
 // void conjuntos_elementos()
 // {
-//   int conj_1[5], conj_2[10], i, j=1, k=1, l=0, m=0, taman=0, inter_1[5], taman_1=0, inter[5];
+//   int conj_1[10], conj_2[20], i, j=1, k=1, l=0, m=0, taman=0, inter_1[10], taman_1=0, inter[10];
 //   // lendo as entradas
-//   for (i=0; i<5; i++)
+//   for (i=0; i<10; i++)
 //   {
 //     printf("Informe o %d elemento do conjunto de 10 ", j);
 //     scanf("%d", &conj_1[i]);
 //     j++;
 //   }
-//   for (i=0; i<10; i++)
+//   for (i=0; i<20; i++)
 //   {
 //     printf("Informe o %d elemento do conjunto de 20 ", k);
 //     scanf("%d", &conj_2[i]);
 //     k++;
 //   }
 //   // identificando o que aparece nos dois vetores
-//   for (i=0; i<5; i++)
+//   for (i=0; i<10; i++)
 //   {
-//     for (j=0; j<10; j++)
+//     for (j=0; j<20; j++)
 //     {
 //       if (conj_1[i] == conj_2[j])
 //       {
@@ -221,27 +222,13 @@
 //       }
 //     }  
 //   }
-//   // tirando os itens repetidos
-//   #####################################
-//   for (m=0; m<5; m++)
-//   {
-//     for (l=0; l<10; l++)
-//     {
-//       inter_1[taman_1] = conj_1[m];
-//       if (inter_1[taman_1] == conj_1[l])
-//       {
-//         inter_1[taman_1] = ;
-//         taman_1++;
-//         printf("%d",conj_1[m]);
-//         break;
-//       }
-//     }  
-//   }
-//   ##########################################
 //   // imprimir o resultado
-//   for (i=0; i<taman_1;i++)
+//   for (i=0; i<taman;i++)
 //   {
-//     printf("Itens que se repetem: %d\n", inter_1[i]);
+//     if (inter[i] != inter[i+1])
+//     {
+//     printf("Itens que se repetem: %d\n", inter[i]);
+//     }
 //   }
 // }
 // // Chamando o void
@@ -251,33 +238,122 @@
 // }
 
 // Questão 8: Criar programa que leia dados de 20 elementos inteiros. imprimir o maior e o menor, sem ordenar, o percentual de números pares e a media dos elementos do vetor.
-int main()
-{
-  int element[5], i, maior=-9000000000, menor=9000000000000, resto_div;
-  float num_par;
-  double perc_num_par;
-  for (i=0; i<5; i++)
-  {
-    printf("Informe o numero ");
-    scanf("%d", &element[i]);
-    // maior e menor
-    if (element[i] > maior)
-    {
-      maior = element[i];
-    }
+// int main()
+// {
+//   int element[5], i, maior=-900000, menor=90000000, resto_div, soma=0;
+//   double num_par, perc_num_par, media;
+//   for (i=0; i<5; i++)
+//   {
+//     printf("Informe o numero ");
+//     scanf("%d", &element[i]);
+//     // maior e menor
+//     if (element[i] > maior)
+//     {
+//       maior = element[i];
+//     }
     
-    else if (element[i] < menor)
-    {
-      menor = element[i];
-    }
-    // pares
-    resto_div = element[i]%2;
-    if (resto_div == 0)
-    {
-      num_par++;
-    }
-  }
-  perc_num_par = (num_par/5)*100;
-  printf("maior: %d\nmenor: %d\n", maior, menor);
-  printf("percentual numeros pares: %lf", perc_num_par);
-}
+//     else if (element[i] < menor)
+//     {
+//       menor = element[i];
+//     }
+//     // pares
+//     resto_div = element[i]%2;
+//     if (resto_div == 0)
+//     {
+//       num_par++;
+//     }
+//     // media
+//     soma = soma + element[i];
+//     media = soma/5;
+//   }
+//   perc_num_par = ((num_par/5.00)*100.00);
+//   printf("maior: %d\nmenor: %d\n", maior, menor);
+//   printf("percentual numeros pares: %.2lf\n", perc_num_par);
+//   printf("a media dos elementos do vetor e %.2lf", media);
+// }
+
+// Questão 9: Criar programa que leia elementos de uma matriz inteira de 10x10 e escreva os elementos da diagonal principal
+// int main()
+// {
+//   #define tam 10
+//   int matriz[tam][tam], i, j, l, m, t=0, u=0, v=0, w=0;
+//   for (i=0;i<tam;i++)
+//   {
+//     for(j=0;j<tam;j++)
+//     {
+//       t = i+1;
+//       u = j+1;
+//       printf("Informe o elemento da matriz[%d][%d] ",t,u);
+//       scanf("%d", &matriz[i][j]);
+//     }
+//   }
+//   for (l=0;l<tam;l++)
+//   {
+//     for(m=0;m<tam;m++)
+//     {
+//       if (l==m)
+//       {
+//         v=l+1;
+//         w=m+1;
+//         printf("Os elementos da diagonal da matriz são:");
+//         printf("Elemento[%d][%d]: %d\n", v, w, matriz[l][m]);
+//       }  
+//     }
+//   }
+// }
+
+// Questão 10: Criar programa que leia e armazena os elementos de uma matriz M inteira 10x10 e imprima todos os elementos que estão em linhas pares e colunas impares.
+// int main()
+// {
+//   #define tam 10
+//   int matriz[tam][tam], i, j, l, m, t=0, u=0, v=0, w=0;
+//   for (i=0;i<tam;i++)
+//   {
+//     for(j=0;j<tam;j++)
+//     {
+//       t = i+1;
+//       u = j+1;
+//       printf("Informe o elemento da matriz[%d][%d] ",t,u);
+//       scanf("%d", &matriz[i][j]);
+//     }
+//   }
+//   for (l=1;l<tam;l=l+2)
+//   {
+//     for(m=0;m<tam;m=m+2)
+//     {
+//       v=l+1;
+//       w=m+1;
+//       printf("Os elementos da linha par e coluna impar sao:");
+//       printf("Elemento[%d][%d]: %d\n", v, w, matriz[l][m]);
+        
+//     }
+//   }
+// }
+
+// Questão 11: Criar e armazenar ua matriz a 10x10 e gerar e imprimir a matriz invertida
+// int main()
+// {
+//   #define tam 10
+//   int matriz[tam][tam], matriz_1[tam][tam], i, j, l, m, t=0, u=0, v=0, w=0;
+//   for (i=0;i<tam;i++)
+//   {
+//     for(j=0;j<tam;j++)
+//     {
+//       t = i+1;
+//       u = j+1;
+//       printf("Informe o elemento da matriz[%d][%d] ",t,u);
+//       scanf("%d", &matriz[i][j]);
+//     }
+//   }
+//   for (l=0;l<tam;l++)
+//   {
+//     for(m=0;m<tam;m++)
+//     {
+//       matriz_1[l][m] = matriz[m][l];
+//       v=l+1;
+//       w=m+1;
+//       printf("Os elementos da matriz invetida são: ");
+//       printf("Elemento[%d][%d]: %d\n", v, w, matriz_1[l][m]);
+//     }
+//   }
+// }
