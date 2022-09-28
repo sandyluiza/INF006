@@ -1,1 +1,1 @@
-Questao4.o: Continuação_revisão/Questao4.c
+Questao4.o: Aula_domingos/Continuação_revisão/Questao4.c

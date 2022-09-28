@@ -1,1 +1,1 @@
-Questao7.o: Continuação_revisão/Questao7.c
+Questao7.o: Aula_domingos/Continuação_revisão/Questao7.c

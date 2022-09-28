@@ -21,6 +21,7 @@ int main ()
   char dataNasc[12], sdia[3], smes[3], sano[12];
   int i, j, k, dia, mes, ano;
 
+  // Lendo a data de nascimento
   while (strcmp(dataNasc,"9999")!=0)
   {
     strcmp(sdia," ");
@@ -42,7 +43,8 @@ int main ()
     {
       printf("Digite a data no formato DD/MM/AAAA ");
     }
-
+      
+    // Transformando a string em números
     else if (strlen(dataNasc)>7)
     {
       for(i=0; dataNasc[i] != '/' && i<2; i++)
@@ -51,7 +53,6 @@ int main ()
       }
       sdia[i] = '\0';
       dia = atoi(sdia); 
-      // printf("%d", dia);
   
       for(j=0; dataNasc[j] != '/' && j<2; j++)
       {
@@ -59,7 +60,6 @@ int main ()
       }
       smes[j] = '\0';
       mes = atoi(smes);
-      // printf("\n%d", mes);
   
       for(k=0; k<8; k++)
       {
@@ -67,11 +67,8 @@ int main ()
       }
       sano[k] = '\0';
       ano = atoi(sano);
-      // printf("\n%d", ano);
-      // printf("\n%s", dataNasc);
-  
-      // fflush(stdin);
 
+      // Determinando o signo
       if ((dia>21 && mes==12)||(dia<21 && mes==1))
       {
         printf("Capricórnio");
