@@ -5,7 +5,7 @@
 int main()
 {
   // Variáves
-  int i=0, aux, aux_1=0, j, vet[num], cont=0, cont_1;
+  int i=0, aux, aux_1=0, j, vet[num], cont=0, cont_1, aux_2, aux_3, aux_4, aux_5, aux_6, aux_7, aux_8, aux_9;
   
   // lendo o vetor
   while (i<num)
@@ -18,17 +18,33 @@ int main()
     {
       if (aux>vet[j])
       {
-        cont_1=j+1;
-        if (cont_1<=num-1)
+        if (j<=num-1)
         {
           aux_1 = vet[j];
           vet[j] = aux;
-          vet[cont_1] = aux_1;
+          aux_2 = vet[j+1];
+          vet[j+1] = aux_1;
+          aux_3 = vet[j+2];
+          vet[j+2] = aux_2;
+          aux_4 = vet[j+3];
+          vet[j+3] = aux_3;
+          aux_5 = vet[j+4];
+          vet[j+4] = aux_4;
+          aux_6 = vet[j+5];
+          vet[j+5] = aux_5;
+          aux_7 = vet[j+6];
+          vet[j+6] = aux_6;
+          aux_8 = vet[j+7];
+          vet[j+7] = aux_7;
+          aux_9 = vet[j+8];
+          vet[j+8] = aux_8;
+          vet[j+9] = aux_9;
           break;
         }
-        else if (cont_1 > num-1)
+        else if (j > num-1)
         {
           vet[j] = aux;
+          break;
         }
       }
     }
