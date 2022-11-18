@@ -41,10 +41,10 @@
 // #include <stdio.h>
 // int main()
 // {
-//   int n = 12, i=0, k = 31, metade, cont = 0; 
+//   int n = 12, i=0, k = 1, metade, cont = 0; 
 //   int vetor[12] = {1, 3, 5, 8, 9, 17, 32, 44, 51, 57, 60, 62};
   
-//   while (i<n)
+//   while (i<=n)
 //   {
 //     metade = (n+i)/2;
 //     if (vetor[metade] == k)
@@ -55,13 +55,13 @@
 //     }
 //     else if(k > vetor[metade])
 //     {
-//       i = i+metade;
+//       i = 1+metade;
 //     }
 //     else if(k < vetor[metade])
 //     {
-//       n = n-metade;
+//       n = metade-1;
 //     }
-//     i = i+1;
+
 //   }
 //   if (cont == 0)
 //   {

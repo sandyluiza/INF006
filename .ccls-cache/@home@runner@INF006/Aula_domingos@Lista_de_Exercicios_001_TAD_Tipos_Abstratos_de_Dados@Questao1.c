@@ -1,13 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-void validacao_data();
-int main();
-void soma_data();
-void subtra_data();
-void data_extenso();
-void data_pascoa();
-
 typedef struct
 {
   int edia;
@@ -17,13 +7,26 @@ typedef struct
 }
 DataComp;
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+DataComp validacao_data();
+int main();
+void soma_data();
+void subtra_data();
+void data_extenso();
+void data_pascoa();
+void puxar_valores();
+DataComp separa_data();
+
 // Separando a data
 DataComp separa_data(DataComp data)
 {
   char dataNasc[12], sdia[3], smes[3], sano[12];
   int i, j, k, dia, mes, ano, cont_estru = 0;
 
-  while (strlen(dataNasc)<10)
+  while ((strlen(dataNasc)<10)&& (strcmp(dataNasc,"9999")!=0))
   {
     strcmp(sdia," ");
     strcmp(smes," ");
@@ -32,7 +35,7 @@ DataComp separa_data(DataComp data)
     mes = 0;
     ano = 0;
     
-    printf("\nInforme a data ");
+    printf("\nDigite a data no formato DD/MM/AAAA ou digite 9999 para sair ");
     fgets(dataNasc, 12, stdin);
     size_t lo = strlen(dataNasc) - 1;
     if (dataNasc[lo] == '\n')
@@ -42,7 +45,7 @@ DataComp separa_data(DataComp data)
 
     if (strlen(dataNasc)<10 && (strcmp(dataNasc,"9999")!=0))
     {
-      printf("Digite a data no formato DD/MM/AAAA ");
+      printf("Digite a data no formato DD/MM/AAAA ou digite 9999 para sair ");
     }
       
     else if (strlen(dataNasc)>7)
@@ -71,8 +74,10 @@ DataComp separa_data(DataComp data)
     data.edia = dia;
     data.emes = mes;
     data.eano = ano;
+    // printf("\n%d %d %d\n", data.edia, data.emes, data.eano);
     return data;
   }
+  return data;
 }
 
 // uma função que recebe como parâmetro o dia, o mês, o ano e uma estrutura do tipo Data, onde o resultado deve ser armazenado, e retorna verdadeiro se a data estiver válida; caso contrário, retorna falso. A validação da data pode ser feita da seguinte forma:
@@ -81,10 +86,10 @@ DataComp separa_data(DataComp data)
 // ■ cálculo de ano bissexto: cada ano divisível por 4 é um ano bissexto(E); cada ano divisível por 100 não é bissexto
 // (OU); todo ano divisível por 400 sempre é um ano bissexto;
 // ■ uma função que recebe como parâmetro uma data do tipo string (no formato DD/MM/AAAA) e uma estrutura do tipo Data, onde o resultado deve ser armazenado, e retorna verdadeiro se a data estiver válida; caso contrário, retorna falso;
-void validacao_data(DataComp data)
+DataComp validacao_data(DataComp data)
 {
-  separa_data(data);
-  printf("\n%d %d %d\n", data.edia, data.emes, data.eano);
+  data = separa_data(data);
+  // printf("\n%d %d %d\n", data.edia, data.emes, data.eano);
   int biss = 0;
   data.cont = 0;
   // mes 30
@@ -121,53 +126,154 @@ void validacao_data(DataComp data)
   if (data.cont == 0)
   {
     printf("\nData inválida. Falso\n");
-    return 0;
+    return data;
   }
   else
   {
     printf("\nData válida. Verdadeiro");
+    return data;
   }
 }
 
 // ■ uma função que recebe como parâmetro uma estrutura do tipo Data e um número inteiro, e retorna a soma do número de dias da data recebida;
+
 void soma_data(DataComp data)
 {
   int numerod, conta_dia, ano, dia, mes;
-  printf("\nInforme o número inteiro de dias: ");
-  scanf("%d", &numerod);
-
-  conta_dia = numerod;
-  dia = data.edia;
-  mes = data.emes;
-  ano = data.eano;
   
-  while (conta_dia > 0)
+  data = validacao_data(data);
+  
+  if (data.cont != 0)
   {
-    if (conta_dia >= 365)
+    // printf("\n%d %d %d\n", data.edia, data.emes, data.eano);
+    printf("\nInforme o número inteiro de dias: ");
+    scanf("%d", &numerod);
+  
+    conta_dia = numerod;
+    dia = data.edia;
+    mes = data.emes;
+    ano = data.eano;
+    
+    while (conta_dia > 0)
     {
-      ano = ano + 1;
-      conta_dia = conta_dia - 365;
+      int biss = 0;
+      if (conta_dia >= 365)
+      {
+        conta_dia = conta_dia - 365;
+        ano = ano + 1;
+        
+        if (ano % 4 == 0)
+        {
+          biss = biss + 1;
+        }
+        else if ((ano % 4 == 0) && (ano % 100 == 0))
+        {
+          biss = 0;
+        }
+        else if ((ano % 4 == 0) && (ano % 100 == 0) && (ano % 400 == 0))
+        {
+          biss = biss + 1;
+        }
+        
+        if (biss > 0)
+        {
+          conta_dia = conta_dia - 1;
+        }
+      }
+        
+      else if (conta_dia < 365 && conta_dia > 30)
+      {
+        conta_dia = conta_dia - 30;
+        
+        if ((mes == 1)||(mes == 3)||(mes == 5)||(mes == 7)||(mes == 8)||(mes == 10)||(mes == 12))
+        {
+          mes = mes + 1;
+          conta_dia = conta_dia - 1;
+        } 
+        else if (mes == 2)
+        {
+          if (ano % 4 == 0)
+          {
+            biss = biss + 1;
+          }
+          else if ((ano % 4 == 0) && (ano % 100 == 0))
+          {
+            biss = 0;
+          }
+          else if ((ano % 4 == 0) && (ano % 100 == 0) && (ano % 400 == 0))
+          {
+            biss = biss + 1;
+          }
+          
+          if ((biss == 0) && (mes == 2))
+          {
+            mes = mes + 1;
+            conta_dia = conta_dia + 2;
+          }
+          else if ((biss > 0) && (mes == 2))
+          {
+            mes = mes + 1;
+            conta_dia = conta_dia + 1;
+          }
+        }
+        else
+        {
+          mes = mes + 1;
+        }
+      }   
+        
+      else if (conta_dia < 30)
+      {
+        dia = dia + 1;
+        conta_dia = conta_dia - 1;
+      }
     }
-    else if (conta_dia < 365 && conta_dia > 31)
+    
+    while ((dia > 28) && (mes == 2))
     {
       mes = mes + 1;
-      conta_dia = conta_dia - 31;
-    }   
-    else if (conta_dia < 31)
+      dia = dia - 28;
+      int biss = 0;
+      if (ano % 4 == 0)
+      {
+        biss = biss + 1;
+      }
+      else if ((ano % 4 == 0) && (ano % 100 == 0))
+      {
+        biss = 0;
+      }
+      else if ((ano % 4 == 0) && (ano % 100 == 0) && (ano % 400 == 0))
+      {
+        biss = biss + 1;
+      }
+      
+      if (biss != 0)
+      {
+        dia = dia + 1;
+      }
+    }
+
+    while ((dia > 30) && ((mes == 4)||(mes == 6)||(mes == 9)||(mes == 11)))
     {
-      dia = dia + 1;
-      conta_dia = conta_dia - 1;
+      mes = mes + 1;
+      dia = dia - 30;
+    }
+
+    while ((dia > 31) && (mes == 1)||(mes == 3)||(mes == 5)||(mes == 7)||(mes == 8)||(mes == 10)||(mes == 12))
+    {
+      mes = mes + 1;
+      dia = dia - 31;
+    }
+
+    while (mes > 12)
+    {
+      ano = ano + 1;
+      mes = mes - 12;
     }
   }
-  while (dia > 31)
+  else
   {
-    mes = mes + 1;
-    dia = dia - 31;
-  }
-  while (mes > 12)
-  {
-    ano = ano + 1;
-    mes = mes - 12;
+    return;
   }
   printf("\n%d %d %d\n", dia, mes, ano);
 }
@@ -175,12 +281,151 @@ void soma_data(DataComp data)
 // ■ uma função que recebe como parâmetro uma estrutura do tipo Data e um número inteiro, e retorna a subtração do número de dias da data recebida;
 void subtra_data(DataComp data)
 {
-  return;
+  int numerod, conta_dia, ano, dia, mes;
+  
+  data = validacao_data(data);
+  
+  if (data.cont != 0)
+  {
+    // printf("\n%d %d %d\n", data.edia, data.emes, data.eano);
+    printf("\nInforme o número inteiro de dias: ");
+    scanf("%d", &numerod);
+  
+    conta_dia = numerod;
+    dia = data.edia;
+    mes = data.emes;
+    ano = data.eano;
+    
+    while (conta_dia > 0)
+    {
+      int biss = 0;
+      if (conta_dia >= 365)
+      {
+        conta_dia = conta_dia - 365;
+        ano = ano - 1;
+        
+        if (ano % 4 == 0)
+        {
+          biss = biss + 1;
+        }
+        else if ((ano % 4 == 0) && (ano % 100 == 0))
+        {
+          biss = 0;
+        }
+        else if ((ano % 4 == 0) && (ano % 100 == 0) && (ano % 400 == 0))
+        {
+          biss = biss + 1;
+        }
+        
+        if (biss > 0)
+        {
+          conta_dia = conta_dia - 1;
+        }
+      }
+        
+      else if (conta_dia < 365 && conta_dia > 30)
+      {
+        conta_dia = conta_dia - 30;
+        
+        if ((mes == 1)||(mes == 3)||(mes == 5)||(mes == 7)||(mes == 8)||(mes == 10)||(mes == 12))
+        {
+          mes = mes - 1;
+          conta_dia = conta_dia - 1;
+        } 
+        else if (mes == 2)
+        {
+          if (ano % 4 == 0)
+          {
+            biss = biss + 1;
+          }
+          else if ((ano % 4 == 0) && (ano % 100 == 0))
+          {
+            biss = 0;
+          }
+          else if ((ano % 4 == 0) && (ano % 100 == 0) && (ano % 400 == 0))
+          {
+            biss = biss + 1;
+          }
+          
+          if ((biss == 0) && (mes == 2))
+          {
+            mes = mes - 1;
+            conta_dia = conta_dia + 2;
+          }
+          else if ((biss > 0) && (mes == 2))
+          {
+            mes = mes - 1;
+            conta_dia = conta_dia + 1;
+          }
+        }
+        else
+        {
+          mes = mes - 1;
+        }
+      }   
+        
+      else if (conta_dia < 30)
+      {
+        dia = dia - 1;
+        conta_dia = conta_dia - 1;
+      }
+    }
+    
+    while ((dia < 1) && (mes == 2))
+    {
+      mes = mes - 1;
+      dia = dia + 28;
+      int biss = 0;
+      if (ano % 4 == 0)
+      {
+        biss = biss + 1;
+      }
+      else if ((ano % 4 == 0) && (ano % 100 == 0))
+      {
+        biss = 0;
+      }
+      else if ((ano % 4 == 0) && (ano % 100 == 0) && (ano % 400 == 0))
+      {
+        biss = biss + 1;
+      }
+      
+      if (biss != 0)
+      {
+        dia = dia - 1;
+      }
+    }
+
+    while ((dia < 1) && ((mes == 4)||(mes == 6)||(mes == 9)||(mes == 11)))
+    {
+      mes = mes - 1;
+      dia = dia + 30;
+    }
+
+    while ((dia < 1) && (mes == 1)||(mes == 3)||(mes == 5)||(mes == 7)||(mes == 8)||(mes == 10)||(mes == 12))
+    {
+      mes = mes - 1;
+      dia = dia + 31;
+    }
+
+    while (mes < 1)
+    {
+      ano = ano - 1;
+      mes = mes + 12;
+    }
+  }
+  else
+  {
+    return;
+  }
+  printf("\n%d %d %d\n", dia, mes, ano);
 }
+
 
 // ■ uma função que recebe como parâmetro uma data e escreve essa data por extenso. Por exemplo, 25/03/2007 deve ser escrito como 25 de março de 2007. A função deve retornar verdadeiro se a operação for realizada com sucesso e falso, caso contrário;
 void data_extenso(DataComp data)
 {
+  data = validacao_data(data);
+  
   if (data.emes == 1)
   {
     printf("\n%d de janeiro de %d\n", data.edia, data.eano);
@@ -229,39 +474,66 @@ void data_extenso(DataComp data)
   {
     printf("\n%d de dezembro de %d\n", data.edia, data.eano);
   }
+  return;
 }
 
 // ■ uma função que receba como parâmetro o ano e retorne a data da Páscoa. O domingo de Páscoa é o primeiro domingo depois da primeira lua cheia do outono. 
 void data_pascoa(DataComp data)
 {
-  int a, b, c, d, e, g, h, j, k, m, r, n, p;
+  int a, b, c, k, p, q, M, N, d, e;
+  
+  data = validacao_data(data);
   
   a = data.eano % 19;
-  b = data.eano / 100;
-  c = data.eano % 100;
-  d = b / 4;
-  e = b % 4;
-  g = ((8 * b) + 13) / 25;
-  h = (19 * a + b - d - g + 15) / 30;
-  j = c / 4;
-  k = c % 4;
-  m = (a + 11 * h) / 319;
-  r = (2 * e + 2 * j - k - h + m + 32) % 7;
-  n = (h - m + r + 90) / 25;
-  p = (h - m + r + n + 19) % 32;
+  b = data.eano % 4;
+  c = data.eano % 7;
+  p = floor(data.eano/100);
+  q = (13 + (8 * p)) / 25;
+  M = (15 - q + p - (p/4)) % 30;
+  N = (4 + p - (p/4)) % 7;
+  d = (19 * a + M) % 30;
+  e = (2*b + 4*c + 6*d + N) % 7;
 
-  printf("\n %d %d %d %d %d %d %d %d %d %d %d %d %d \n", a, b, c, d, e, g, h, j, k, m, r, n, p);
+  if ((d + e) < 10)
+  {
+    int dia = d + e + 22;
+    printf("\nA páscoa é %d de março.\n", dia);
+  }
+
+  else if ((d + e) > 9)
+  {
+    int dia = d + e - 9;
+    if (dia > 25)
+    {
+      printf("\nA páscoa é 19 de abril.\n");
+    }
+    else if (dia == 25)
+    {
+      printf("\nA páscoa é 18 de abril.\n");
+    }
+    else
+    {
+      printf("\nA páscoa é %d de abril.\n", dia);
+    }
+  }
+  printf("\na:%d b:%d c:%d k:%d p:%d q:%d M:%d N:%d d:%d e:%d",a, b, c, k, p, q, M, N, d, e);
+  return;
+}
+
+void puxar_valores(DataComp data)
+{
+  // separa_data(data); 
+  // validacao_data(data);
+  // soma_data(data);
+  // subtra_data(data);
+  data_extenso(data);
+  // data_pascoa(data);
   return;
 }
 
 int main()
 {
   DataComp data;
-  // separa_data(data); 
-  validacao_data(data);
-  // soma_data(data);
-  // subtra_data(data);
-  // data_extenso(data);
-  // data_pascoa(data);
+  puxar_valores(data);
+  return 0;
 }
-

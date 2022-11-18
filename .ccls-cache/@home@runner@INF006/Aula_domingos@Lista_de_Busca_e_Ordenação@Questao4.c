@@ -5,5 +5,6 @@
 
 int main()
 {
+  // Não fomos treinados em heap-sort
   return 0;
 }
